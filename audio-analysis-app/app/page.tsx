@@ -5,13 +5,14 @@ import AudioRecorder from "@/components/audio-recorder"
 import ScoreDisplay from "@/components/score-display"
 import LoadingSpinner from "@/components/loading-spinner"
 import LoginModal from "@/components/login-modal"
-
+import SignupModal from "@/components/signup-modal"
 
 export default function Home() {
   const [isRecording, setIsRecording] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [result, setResult] = useState<{ score: number; summary: string } | null>(null)
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showSignUpModal, setShowSignUpModal] = useState(false)
   const [token, setToken] = useState<string | null>(null)
   const audioRef = useRef<Blob | null>(null)
 
@@ -77,24 +78,48 @@ export default function Home() {
     localStorage.removeItem('access')
   }
 
+  const handleSignUp = (confirmation: { success: boolean }) => {
+    if (confirmation.success) {
+      setShowSignUpModal(false)
+    }
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 bg-[#2A2626] text-[#F2E2E2] font-montserrat">
       <div className="w-full flex justify-end mb-4">
         {token ? (
           <button 
             onClick={handleLogout}
-            className="bg-[#867878] hover:bg-[#6E5E5E] text-[#F2E2E2] py-2 px-4 rounded-md transition-colors"
+            className="hover:text-[#6E5E5E] text-[#F2E2E2] transition-colors"
           >
             Logout
           </button>
         ) : (
           <button 
             onClick={() => setShowLoginModal(true)}
-            className="bg-[#867878] hover:bg-[#6E5E5E] text-[#F2E2E2] py-2 px-4 rounded-md transition-colors"
+            className="hover:text-[#6E5E5E] text-[#F2E2E2] transition-colors "
           >
             Login
           </button>
         )}
+        <span className="mx-2 text-[#F2E2E2]"></span>
+        {token ? (
+            <button 
+            onClick={() => setShowSignUpModal(true)}
+            className="hover:text-[#6E5E5E] text-[#F2E2E2] hidden"
+          >
+            Sign Up
+          </button>
+        )
+        : (
+          <button 
+            onClick={() => setShowSignUpModal(true)}
+            className="hover:text-[#6E5E5E] text-[#F2E2E2] transition-colors"
+          >
+            Sign Up
+          </button>
+        )
+      } 
       </div>
       
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
@@ -120,6 +145,13 @@ export default function Home() {
         <LoginModal 
           onClose={() => setShowLoginModal(false)} 
           onLogin={handleLogin}
+        />
+      )}
+
+      {showSignUpModal && (
+        <SignupModal 
+          onClose={() => setShowSignUpModal(false)}
+          onSignUp={handleSignUp}
         />
       )}
     </main>
