@@ -2,7 +2,7 @@ import uuid
 
 from rest_framework import views
 from rest_framework.response import Response
-from analyzer.helper import assess_pronunciation, save_audio_to_directory
+from analyzer.helper import assess_pronunciation
 
 
 # Create your views here.
@@ -16,10 +16,6 @@ class SpeechAnalyzerView(views.APIView):
         # Ensure the audio data is in the correct format
         if not audio_data.name.endswith('.wav'):
             return Response({"error": "Invalid audio format. Please upload a .wav file."}, status=400)
-
-
-        # Process the audio data and get the assessment\
-
 
         score, feedback = assess_pronunciation(audio_data)
 
