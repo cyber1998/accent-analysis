@@ -46,3 +46,11 @@ Install all the the packages using your favourite package manager and then
 
 ![Start recording screen](screenshots/start_recording.png)
 ![Results screen after analysis](screenshots/results.png)
+
+## Planned features
+- [ ] Add a database to store user data
+- [ ] Add a login system
+- [ ] Add a history page to show past recordings
+- [ ] Analyze progress over time using graphs
+- [ ] Ability to choose different accents
+- [ ] Ability to choose your own AI model
