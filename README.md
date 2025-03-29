@@ -38,7 +38,7 @@ OPENAI_API_KEY='your-openai-api-key-here'
 
 ## Running the app
 
-Install all the the packages using your favourite package manager and then
+Install all the packages using your favourite package manager and then
 - `next build`
 - `next dev`
 
