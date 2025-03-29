@@ -49,7 +49,7 @@ Install all the packages using your favourite package manager and then
 
 ## Planned features
 - [ ] Add a database to store user data
-- [ ] Add a login system
+- [x] Add a login system
 - [ ] Add a history page to show past recordings
 - [ ] Analyze progress over time using graphs
 - [ ] Ability to choose different accents
