@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework_simplejwt import views as auth_views
 
-from analyzer.views import SpeechAnalyzerView
+from analyzer.views import SpeechAnalyzerView, RegisterUserView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/analyze-audio/', SpeechAnalyzerView.as_view(), name='speech_analyzer'),
+    path('api/register/', RegisterUserView.as_view(), name='register_user'),
     path('api/token/', auth_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', auth_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
