@@ -3,10 +3,10 @@
 This is an extremely basic app that I built to practice my english accent with GPT-4o's latest audio model.  
 It's built on a React/Next.js frontend and a Python/Django backend.  
   
-Open declaration: The frontend is vibe-coded within 2 messages on v0.dev 😭  
-I changed a few things around obviously and the API paths are hardcoded to localhost right now.  
+Open declaration: The frontend was initially generated within 2 messages on v0.dev 😭  
+After that, I grew it myself and changed a few things around obviously and the API paths are hardcoded to localhost right now.  
 
-The project is only 10% done - with no authorization or databases involved right now, however it's basic intended functionality works. Bells and whistles will be added by me slowly but surely.
+The project is far from done, however it's basic intended functionality works. Bells and whistles will be added by me slowly but surely.
 
 # Backend
 
@@ -43,9 +43,17 @@ Install all the packages using your favourite package manager and then
 - `next dev`
 
 ## Screenshots
-
+![Landing page](screenshots/landing_page.png)
+![Signup page](screenshots/signup_form.png)
+![Login page](screenshots/login_form.png)
 ![Start recording screen](screenshots/start_recording.png)
-![Results screen after analysis](screenshots/results.png)
+![Recording page](screenshots/recording.png)
+![Recording page finished](screenshots/recording_finished.png)
+![Analysis page](screenshots/analyzing.png)
+![Results screen after analysis](screenshots/result_page.png)
+![Past results page](screenshots/past_results.png)
+
+
 
 ## Planned features
 - [x] Add a database to store user data
