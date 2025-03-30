@@ -48,9 +48,9 @@ Install all the packages using your favourite package manager and then
 ![Results screen after analysis](screenshots/results.png)
 
 ## Planned features
-- [ ] Add a database to store user data
+- [x] Add a database to store user data
 - [x] Add a login system
-- [ ] Add a history page to show past recordings
+- [x] Add a history page to show past recordings
 - [ ] Analyze progress over time using graphs
 - [ ] Ability to choose different accents
 - [ ] Ability to choose your own AI model
