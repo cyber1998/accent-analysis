@@ -1,9 +1,11 @@
 import uuid
 
 from django.contrib.auth.models import User
+from django.db import models
 from rest_framework import views
 from rest_framework.response import Response
 from analyzer.helper import assess_pronunciation
+from analyzer.models import UserResult
 
 
 # Create your views here.
@@ -20,8 +22,47 @@ class SpeechAnalyzerView(views.APIView):
 
         score, feedback = assess_pronunciation(audio_data)
 
+        # Save the result to the database
+        user_result = UserResult.objects.create(
+            user=request.user,
+            score=score,
+            feedback=feedback,
+            model='gpt-4o-audio-preview'
+        )
+
         # Return the assessment as a response
         return Response({"score": score, "summary": feedback})
+
+
+class PastResultsView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        # Retrieve past results for the authenticated user
+        user_results = UserResult.objects.filter(user=request.user).order_by('-created_at')
+        results = [
+            {
+                "id": result.id,
+                "score": result.score,
+                "feedback": result.feedback,
+                "created_at": result.created_at,
+                "model": result.model
+            }
+            for result in user_results
+        ]
+        return Response({"results": results})
+
+
+class PerformanceGraphView(views.APIView):
+    def get(self, request, *args, **kwargs):
+        # Retrieve performance data for the authenticated user
+        user_results = UserResult.objects.filter(user=request.user).order_by('-created_at')
+        performance_data = [
+            {
+                "created_at": result.created_at,
+                "score": result.score
+            }
+            for result in user_results
+        ]
+        return Response({"results": performance_data})
 
 
 class RegisterUserView(views.APIView):
