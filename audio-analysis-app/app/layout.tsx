@@ -13,9 +13,8 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "Audio Analysis App",
-  description: "Record and analyze audio",
-    generator: 'v0.dev'
+  title: "Accent Analyzer",
+  description: "Record and analyze your speech accent!"
 }
 
 export default function RootLayout({

@@ -6,6 +6,7 @@ import ScoreDisplay from "@/components/score-display"
 import LoadingSpinner from "@/components/loading-spinner"
 import LoginModal from "@/components/login-modal"
 import SignupModal from "@/components/signup-modal"
+import PastResultsModal from "@/components/past-results-modal"
 
 export default function Home() {
   const [isRecording, setIsRecording] = useState(false)
@@ -13,6 +14,7 @@ export default function Home() {
   const [result, setResult] = useState<{ score: number; summary: string } | null>(null)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSignUpModal, setShowSignUpModal] = useState(false)
+  const [showPastResultsModal, setShowPastResultsModal] = useState(false)
   const [token, setToken] = useState<string | null>(null)
   const audioRef = useRef<Blob | null>(null)
 
@@ -84,6 +86,10 @@ export default function Home() {
     }
   }
 
+  const handlePastResults = () => {
+    setShowPastResultsModal(true)
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 bg-[#2A2626] text-[#F2E2E2] font-montserrat">
       <div className="w-full flex justify-end mb-4">
@@ -118,23 +124,41 @@ export default function Home() {
           >
             Sign Up
           </button>
-        )
-      } 
+          )
+        }
+        <span className="mx-2 text-[#F2E2E2]"></span>
+        {token && (
+          <button 
+            onClick={handlePastResults}
+            className="hover:text-[#6E5E5E] text-[#F2E2E2] transition-colors"
+          >
+            Past Results
+          </button>
+        )}  
       </div>
       
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
-        {!isLoading && !result && (
-          <AudioRecorder
-            isRecording={isRecording}
-            startRecording={startRecording}
-            stopRecording={stopRecording}
-            uploadAudio={uploadAudio}
-          />
+        {!token ? (
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-[#F2E2E2] mb-4">Welcome to Accent Analyzer.</h1>
+            <p className="text-[#F2E2E2]">Please login or sign up to analyze your speech accent.</p>
+          </div>
+        ) : (
+          <>
+            {!isLoading && !result && (
+              <AudioRecorder
+                isRecording={isRecording}
+                startRecording={startRecording}
+                stopRecording={stopRecording}
+                uploadAudio={uploadAudio}
+              />
+            )}
+
+            {isLoading && <LoadingSpinner />}
+
+            {result && <ScoreDisplay score={result.score} summary={result.summary} />}
+          </>
         )}
-
-        {isLoading && <LoadingSpinner />}
-
-        {result && <ScoreDisplay score={result.score} summary={result.summary} />}
       </div>
 
       <footer className="w-full py-6 text-center">
@@ -152,6 +176,14 @@ export default function Home() {
         <SignupModal 
           onClose={() => setShowSignUpModal(false)}
           onSignUp={handleSignUp}
+        />
+      )}
+
+      {showPastResultsModal && (
+        <PastResultsModal
+          onClose={() => setShowPastResultsModal(false)}
+          token={token}
+          isOpen={showPastResultsModal}
         />
       )}
     </main>
